@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Standoff_Service
     {
         MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=root;database=localtest");
 
-        public void openConnection()
+        public void OpenConnection()
         {
             if (connection.State == System.Data.ConnectionState.Closed)
             {
@@ -19,7 +20,7 @@ namespace Standoff_Service
             }
         }
 
-        public void closeConnection()
+        public void CloseConnection()
         {
             if (connection.State == System.Data.ConnectionState.Open)
             {
@@ -27,9 +28,30 @@ namespace Standoff_Service
             }
         }
 
-        public MySqlConnection getConnection()
+        public MySqlConnection GetConnection()
         {
             return connection;
+        }
+
+        public DataTable SelectUser(string username, string password)
+        {
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand($"SELECT * FROM users WHERE login = '{username}' AND password = '{password}'", GetConnection());
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            return table;
+        }
+
+
+        public bool RegistrateUser(string username, string password)
+        {
+            MySqlCommand command = new MySqlCommand($"INSERT INTO `users`( `login`, `password`, `rights`) VALUES ('{username}','{password}','Employee');", GetConnection());
+            int rowsAffected = command.ExecuteNonQuery();
+
+            return rowsAffected > 0;
         }
     }
 }

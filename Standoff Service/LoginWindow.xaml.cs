@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace Standoff_Service
 {
@@ -61,23 +62,21 @@ namespace Standoff_Service
             string loginUser = LoginField.Text;
             string passwordUser = PasswordField.Password;
 
-            Database database = new Database();
-            DataTable table = new DataTable();
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand($"SELECT * FROM users WHERE login = '{loginUser}' AND password = '{passwordUser}'", database.getConnection());
-
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
+            Database db = new Database();
+            db.OpenConnection();
+            DataTable table = db.SelectUser(loginUser, passwordUser);
+            db.CloseConnection();
 
             if (table.Rows.Count > 0)
             {
-                ErrorMessageTextBlock.Visibility = Visibility.Visible;
-                ErrorMessageTextBlock.Text = "Ебал я это восстанавливать";
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
             }
             else
             {
                 ErrorMessageTextBlock.Visibility = Visibility.Visible;
-                ErrorMessageTextBlock.Text = "Ошибка йопта";
+                ErrorMessageTextBlock.Text = "Логин или пароль неверны";
             }
         }
         private void Registration_Click(object sender, RoutedEventArgs e)

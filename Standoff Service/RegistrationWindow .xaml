@@ -26,13 +26,13 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBox x:Name="LoginField"
+                <TextBox x:Name="RegLoginField"
                          Foreground="Gray"
                          GotFocus="UsernameTextBox_GotFocus"
                          LostFocus="UsernameTextBox_LostFocus"
                          Style="{StaticResource TextBoxStyle}" FontFamily="Segoe UI Light" Margin="41,44,61,-81" Grid.Row="2" Text="Логин:" FontSize="16" Background="#FFF4F2F2"/>
 
-                <PasswordBox x:Name="PasswordField" 
+                <PasswordBox x:Name="RegPasswordField" 
                              Margin="41,90,61,-130"
                              GotFocus="PasswordBox_GotFocus"
                              LostFocus="PasswordBox_LostFocus"
@@ -41,19 +41,21 @@
                              FontSize="16"
                              Grid.Row="2" Background="#FFF4F2F2" />
 
+                <PasswordBox x:Name="RegPasswordFieldRetry" 
+                            Margin="41,136,61,-176"
+                            GotFocus="PasswordBox_GotFocus"
+                            LostFocus="PasswordBox_LostFocus"
+                            Style="{StaticResource PasswordBoxStyle}"
+                            Password="Пароль:"
+                            FontSize="16"
+                            Grid.Row="2" Background="#FFF4F2F2" />
+
                 <Button Content="Зарегистрироваться" 
-                        Click="Login_Click"
+                        Click="Registration_Click"
                         Style="{StaticResource ButtonStyle}"
                         Margin="93,188,113,-224"
                         Grid.Row="2" Background="#FF254380" Foreground="White" FontWeight="Bold"/>
-                <PasswordBox x:Name="PasswordField_Копировать" 
-                Margin="41,136,61,-176"
-                GotFocus="PasswordBox_GotFocus"
-                LostFocus="PasswordBox_LostFocus"
-                Style="{StaticResource PasswordBoxStyle}"
-                Password="Пароль:"
-                FontSize="16"
-                Grid.Row="2" Background="#FFF4F2F2" />
+
             </Grid>
         </Border>
 
@@ -64,14 +66,14 @@
         <TextBlock HorizontalAlignment="Left" Margin="143,27,0,0" TextWrapping="Wrap" Text="positive technologies" VerticalAlignment="Top" FontFamily="Leelawadee" FontWeight="Bold"/>
         <TextBlock x:Name="ErrorMessageTextBlock"
                    HorizontalAlignment="Left"
-                   Margin="91,212,0,0"
+                   Margin="101,195,0,0"
                    Grid.Row="1"
                    Visibility="Collapsed"
                    Text="TextBlock"
                    VerticalAlignment="Top"
                    Foreground="Red"
                    Height="27"
-                   Width="206"
+                   Width="213"
                    TextAlignment="Center"/>
     </Grid>
 </Window>

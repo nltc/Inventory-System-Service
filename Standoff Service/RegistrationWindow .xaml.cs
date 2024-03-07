@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -56,34 +57,39 @@ namespace Standoff_Service
             }
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
+        private void Registration_Click(object sender, RoutedEventArgs e)
         {
-            string loginUser = LoginField.Text;
-            string passwordUser = PasswordField.Password;
+            string loginUser = RegLoginField.Text;
+            string passwordUser = RegPasswordField.Password;
+            string passwordUserRetry = RegPasswordFieldRetry.Password;
 
-            Database database = new Database();
+            string[] fields = { loginUser, passwordUser, passwordUserRetry };
+            bool isAnyFieldEmpty = fields.Any(string.IsNullOrEmpty);
 
-            DataTable table = new DataTable();
-
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-            
-            MySqlCommand command = new MySqlCommand($"SELECT * FROM users WHERE login = '{loginUser}' AND password = '{passwordUser}'", database.getConnection());
-
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            if (table.Rows.Count > 0)
+            if (isAnyFieldEmpty || fields.Any(field => field == "Логин:" || field == "Пароль:"))
             {
                 ErrorMessageTextBlock.Visibility = Visibility.Visible;
-                ErrorMessageTextBlock.Text = "Ебал я это восстанавливать";
+                ErrorMessageTextBlock.Text = "Введите все данные";
+            }
+            else if (passwordUser != passwordUserRetry)
+            {
+                ErrorMessageTextBlock.Visibility = Visibility.Visible;
+                ErrorMessageTextBlock.Text = "Пароли не совпадают";
             }
             else
             {
-                ErrorMessageTextBlock.Visibility = Visibility.Visible;
-                ErrorMessageTextBlock.Text = "Ошибка йопта";
+                Database db = new Database();
+                db.OpenConnection();
+                bool registration = db.RegistrateUser(loginUser, passwordUser);
+                db.CloseConnection();
+
+                if (registration)
+                {
+                    ErrorMessageTextBlock.Visibility = Visibility.Collapsed;
+                    MessageBox.Show("Регистрация прошла успешно");
+                    this.Close();
+                }
             }
         }
-        private void Registration_Click(object sender, RoutedEventArgs e)
-        { }
     }
 }
