@@ -1,10 +1,14 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 
 namespace Standoff_Service
 {
@@ -15,23 +19,16 @@ namespace Standoff_Service
         public void OpenConnection()
         {
             if (connection.State == System.Data.ConnectionState.Closed)
-            {
                 connection.Open();
-            }
         }
 
         public void CloseConnection()
         {
             if (connection.State == System.Data.ConnectionState.Open)
-            {
                 connection.Close();
-            }
         }
 
-        public MySqlConnection GetConnection()
-        {
-            return connection;
-        }
+        public MySqlConnection GetConnection() { return connection; }
 
         public DataTable SelectUser(string username, string password)
         {
@@ -52,6 +49,18 @@ namespace Standoff_Service
             int rowsAffected = command.ExecuteNonQuery();
 
             return rowsAffected > 0;
+        }
+
+        public DataTable ShowMaterials()
+        {
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand("SELECT * FROM nuclearmaterials", GetConnection());
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            return table;
         }
     }
 }

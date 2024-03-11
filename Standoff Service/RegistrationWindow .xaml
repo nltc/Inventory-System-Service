@@ -5,6 +5,7 @@
         Title="Login" Height="348" Width="397"
         MinWidth="400" MinHeight="350"
         MaxWidth="400" MaxHeight="350"
+        WindowStartupLocation="CenterScreen"
         Icon="Icons/rad.png">
 
     <Grid Background="White">

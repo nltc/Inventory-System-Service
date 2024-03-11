@@ -69,7 +69,7 @@ namespace Standoff_Service
 
             if (table.Rows.Count > 0)
             {
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new MainWindow(LoginField.Text);
                 mainWindow.Show();
                 this.Close();
             }
