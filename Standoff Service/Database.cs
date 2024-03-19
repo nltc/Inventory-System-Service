@@ -45,7 +45,7 @@ namespace Standoff_Service
 
         public bool RegistrateUser(string username, string password)
         {
-            MySqlCommand command = new MySqlCommand($"INSERT INTO `users`( `login`, `password`, `rights`) VALUES ('{username}','{password}','Employee');", GetConnection());
+            MySqlCommand command = new MySqlCommand($"INSERT INTO `users`( `Login`, `Password`, `Rights`, `Registration_Date`) VALUES ('{username}','{password}','Employee', NOW());", GetConnection());
             int rowsAffected = command.ExecuteNonQuery();
 
             return rowsAffected > 0;
@@ -56,6 +56,30 @@ namespace Standoff_Service
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             MySqlCommand command = new MySqlCommand("SELECT * FROM nuclearmaterials", GetConnection());
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            return table;
+        }
+
+        public DataTable FindMaterials(string name)
+        {
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand($"SELECT * FROM nuclearmaterials WHERE `Name` = '{name}'", GetConnection());
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            return table;
+        }
+
+        public DataTable ShowPersons()
+        {
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand("SELECT `Name`, `Rights`, `Registration_Date` FROM users", GetConnection());
 
             adapter.SelectCommand = command;
             adapter.Fill(table);

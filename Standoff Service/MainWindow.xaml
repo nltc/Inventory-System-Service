@@ -21,7 +21,25 @@
         <Button x:Name="History_Button" Content="История изменений" HorizontalAlignment="Left" VerticalAlignment="Top" Click="History_Button_Click" Margin="16,142,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
         <TextBlock x:Name="Main_Text" HorizontalAlignment="Left" Margin="266,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="427" Width="624" FontSize="72" Visibility="Collapsed" Text="Система инвентаризации ядерных материалов"/>
         <TextBlock Margin="120,17,698,500" FontSize="10"><Hyperlink Click="Exit_Click"><Run Text="Выйти"/></Hyperlink></TextBlock>
-        <DataGrid x:Name="SQL_Table" Margin="157,0,0,115" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
-
+        <DataGrid x:Name="Materials_Table" Margin="157,0,0,115" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
+        <DataGrid x:Name="Persons_Table" Margin="157,0,0,115" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
+        <Button x:Name="Find_Button"
+                Content="Найти" 
+                Click="Find_Window_Click"
+                Visibility="Collapsed"
+                Style="{StaticResource ButtonStyle}"
+                Margin="190,495,558,29" Background="#FF254380" Foreground="White" FontWeight="Bold"/>
+        <Button x:Name="Add_Button"
+                Content="Добавить" 
+                Click="Add_Window_Click"
+                Visibility="Collapsed"
+                Style="{StaticResource ButtonStyle}"
+                Margin="436,495,312,29" Background="#FF254380" Foreground="White" FontWeight="Bold"/>
+        <Button x:Name="Delete_Button"
+                Content="Удалить" 
+                Click="Delete_Window_Click"
+                Visibility="Collapsed"
+                Style="{StaticResource ButtonStyle}"
+                Margin="688,495,60,29" Background="#FF254380" Foreground="White" FontWeight="Bold"/>
     </Grid>
 </Window>
