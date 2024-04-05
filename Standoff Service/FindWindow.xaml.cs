@@ -29,7 +29,7 @@ namespace Standoff_Service
         {
             TextBox textBox = (TextBox)sender;
 
-            textBox.Text = textBox.Text.Replace("Название:", string.Empty);
+            textBox.Text = textBox.Text.Replace("Name:", string.Empty);
             textBox.Foreground = new SolidColorBrush(Colors.Black);
 
         }
@@ -41,7 +41,7 @@ namespace Standoff_Service
             if (string.IsNullOrEmpty(textBox.Text))
             {
                 textBox.Foreground = new SolidColorBrush(Colors.Gray);
-                textBox.Text = "Название:";
+                textBox.Text = "Name:";
             }
         }
 
@@ -62,7 +62,7 @@ namespace Standoff_Service
             else
             {
                 ErrorMessageTextBlock.Visibility = Visibility.Visible;
-                ErrorMessageTextBlock.Text = "Нет такого материала";
+                ErrorMessageTextBlock.Text = "No such material";
             }
         }
     }

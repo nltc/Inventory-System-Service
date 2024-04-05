@@ -20,7 +20,7 @@ namespace Standoff_Service
         {
             TextBox textBox = (TextBox)sender;
 
-            textBox.Text = textBox.Text.Replace("Логин:", string.Empty);
+            textBox.Text = textBox.Text.Replace("Username:", string.Empty);
             textBox.Foreground = new SolidColorBrush(Colors.Black);
 
         }
@@ -32,7 +32,7 @@ namespace Standoff_Service
             if (string.IsNullOrEmpty(textBox.Text))
             {
                 textBox.Foreground = new SolidColorBrush(Colors.Gray);
-                textBox.Text = "Логин:";
+                textBox.Text = "Username:";
             }
         }
 
@@ -41,7 +41,7 @@ namespace Standoff_Service
         {
             PasswordBox passwordTextBox = (PasswordBox)sender;
 
-            if (passwordTextBox.Password == "Пароль:")
+            if (passwordTextBox.Password == "Password:")
             {
                 passwordTextBox.Password = string.Empty;
             }
@@ -53,7 +53,7 @@ namespace Standoff_Service
 
             if (string.IsNullOrEmpty(passwordTextBox.Password))
             {
-                passwordTextBox.Password = "Пароль:";
+                passwordTextBox.Password = "Password:";
             }
         }
 
@@ -76,7 +76,7 @@ namespace Standoff_Service
             else
             {
                 ErrorMessageTextBlock.Visibility = Visibility.Visible;
-                ErrorMessageTextBlock.Text = "Логин или пароль неверны";
+                ErrorMessageTextBlock.Text = "Wrong username or password";
             }
         }
         private void Registration_Click(object sender, RoutedEventArgs e)

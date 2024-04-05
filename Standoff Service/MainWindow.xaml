@@ -15,28 +15,28 @@
         <Rectangle HorizontalAlignment="Left" Height="51" VerticalAlignment="Top" Width="157" Fill="#FFE6E6EA"/>
         <TextBlock x:Name="User_Text" HorizontalAlignment="Left" Margin="33,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="91"/>
         <Image Source="Icons/account.png" Width="25" Height="27" Margin="3,13,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="Main_Button" Content="Главная" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MainButton_Click" Margin="16,73,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
-        <Button x:Name="Persons_Button" Content="Сотрудники" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Persons_Button_Click" Margin="16,96,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
-        <Button x:Name="Materials_Button" Content="Склад материалов" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Materials_Button_Click" Margin="16,119,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
-        <Button x:Name="History_Button" Content="История изменений" HorizontalAlignment="Left" VerticalAlignment="Top" Click="History_Button_Click" Margin="16,142,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
-        <TextBlock x:Name="Main_Text" HorizontalAlignment="Left" Margin="266,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="427" Width="624" FontSize="72" Visibility="Collapsed" Text="Система инвентаризации ядерных материалов"/>
-        <TextBlock Margin="120,17,698,500" FontSize="10"><Hyperlink Click="Exit_Click"><Run Text="Выйти"/></Hyperlink></TextBlock>
+        <Button x:Name="Main_Button" Content="Home page" HorizontalAlignment="Left" VerticalAlignment="Top" Click="MainButton_Click" Margin="16,73,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
+        <Button x:Name="Persons_Button" Content="Employees" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Persons_Button_Click" Margin="16,96,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
+        <Button x:Name="Materials_Button" Content="Material warehouse" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Materials_Button_Click" Margin="16,119,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
+        <Button x:Name="History_Button" Content="History of changes" HorizontalAlignment="Left" VerticalAlignment="Top" Click="History_Button_Click" Margin="16,142,0,0" Width="141" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" HorizontalContentAlignment="Left"/>
+        <TextBlock x:Name="Main_Text" HorizontalAlignment="Left" Margin="266,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="427" Width="624" FontSize="72" Visibility="Collapsed" Text="Nuclear Materials Inventory System"/>
+        <TextBlock Margin="120,17,698,500" FontSize="10"><Hyperlink Click="Exit_Click"><Run Text="Exit"/></Hyperlink></TextBlock>
         <DataGrid x:Name="Materials_Table" Margin="157,0,0,115" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
         <DataGrid x:Name="Persons_Table" Margin="157,0,0,115" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
         <Button x:Name="Find_Button"
-                Content="Найти" 
+                Content="Find" 
                 Click="Find_Window_Click"
                 Visibility="Collapsed"
                 Style="{StaticResource ButtonStyle}"
                 Margin="190,495,558,29" Background="#FF254380" Foreground="White" FontWeight="Bold"/>
         <Button x:Name="Add_Button"
-                Content="Добавить" 
+                Content="Add" 
                 Click="Add_Window_Click"
                 Visibility="Collapsed"
                 Style="{StaticResource ButtonStyle}"
                 Margin="436,495,312,29" Background="#FF254380" Foreground="White" FontWeight="Bold"/>
         <Button x:Name="Delete_Button"
-                Content="Удалить" 
+                Content="Delete" 
                 Click="Delete_Window_Click"
                 Visibility="Collapsed"
                 Style="{StaticResource ButtonStyle}"

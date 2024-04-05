@@ -17,7 +17,7 @@
 
         <TextBlock TextWrapping="Wrap" TextAlignment="Center" 
                    Style="{StaticResource HeaderTextBlockStyle}" 
-                   Margin="20,30,20,10" FontSize="20" FontWeight="Bold"><Run Language="ru-ru" Text="Введите название материала"/></TextBlock>
+                   Margin="20,30,20,10" FontSize="20" FontWeight="Bold"><Run Language="ru-ru" Text="Enter the name of the material"/></TextBlock>
 
         <Border Grid.Row="1" Margin="20,20,20,141"  BorderThickness="1" CornerRadius="5">
             <Grid Height="164" VerticalAlignment="Top" Margin="16,-59,-10,0">
@@ -27,7 +27,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Button Content="Найти" 
+                <Button Content="Find" 
                         Click="Find_Click"
                         Style="{StaticResource ButtonStyle}"
                         Margin="56,123,89,-159"
@@ -37,7 +37,7 @@
                          Foreground="Gray"
                          GotFocus="FindBox_GotFocus"
                          LostFocus="FindBox_LostFocus"
-                         Style="{StaticResource TextBoxStyle}" FontFamily="Segoe UI Light" Margin="10,54,43,-91" Grid.Row="2" Text="Название:" FontSize="16" Background="#FFF4F2F2"/>
+                         Style="{StaticResource TextBoxStyle}" FontFamily="Segoe UI Light" Margin="10,54,43,-91" Grid.Row="2" Text="Name:" FontSize="16" Background="#FFF4F2F2"/>
             </Grid>
         </Border>
 
