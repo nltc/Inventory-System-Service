@@ -31,10 +31,10 @@
                          Foreground="Gray"
                          GotFocus="UsernameTextBox_GotFocus"
                          LostFocus="UsernameTextBox_LostFocus"
-                         Style="{StaticResource TextBoxStyle}" FontFamily="Segoe UI Light" Margin="41,61,61,-98" Grid.Row="2" Text="Username:" FontSize="16" Background="#FFF4F2F2"/>
+                         Style="{StaticResource TextBoxStyle}" FontFamily="Segoe UI Light" Margin="38,43,64,-80" Grid.Row="2" Text="Username:" FontSize="16" Background="#FFF4F2F2"/>
 
                 <PasswordBox x:Name="PasswordField" 
-                             Margin="41,110,61,-150"
+                             Margin="38,92,64,-132"
                              GotFocus="PasswordBox_GotFocus"
                              LostFocus="PasswordBox_LostFocus"
                              Style="{StaticResource PasswordBoxStyle}"
@@ -45,25 +45,25 @@
                 <Button Content="Sign in" 
                         Click="Login_Click"
                         Style="{StaticResource ButtonStyle}"
-                        Margin="90,159,116,-195"
+                        Margin="90,149,116,-185"
                         Grid.Row="2" Background="#FF254380" Foreground="White" FontWeight="Bold"/>
             </Grid>
         </Border>
 
-        <Image Source="Icons/account.png" Width="34" Height="36" Margin="37,50,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
-        <Image Source="Icons/lock.png" Width="38" Height="46" Margin="35,98,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
+        <Image Source="Icons/account.png" Width="34" Height="36" Margin="37,35,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
+        <Image Source="Icons/lock.png" Width="38" Height="46" Margin="35,83,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"/>
         <TextBlock x:Name="ErrorMessageTextBlock"
                    HorizontalAlignment="Left"
-                   Margin="92,205,0,0"
+                   Margin="88,197,0,0"
                    Grid.Row="1"
                    Visibility="Collapsed"
                    Text="TextBlock"
                    VerticalAlignment="Top"
                    Foreground="Red"
                    Height="27"
-                   Width="219"
+                   Width="220"
                    TextAlignment="Center"/>
-        <TextBlock Margin="181,186,153,71" Grid.Row="1" FontSize="10"><Hyperlink Click="Registration_Click"><Run Text="Sign up"/></Hyperlink></TextBlock>
+        <TextBlock Margin="181,181,153,76" Grid.Row="1" FontSize="10"><Hyperlink Click="Registration_Click"><Run Text="Sign up"/></Hyperlink></TextBlock>
 
     </Grid>
 </Window>

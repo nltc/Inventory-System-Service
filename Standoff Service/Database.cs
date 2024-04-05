@@ -43,9 +43,9 @@ namespace Standoff_Service
         }
 
 
-        public bool RegistrateUser(string username, string password)
+        public bool RegistrateUser(string username, string password, string name)
         {
-            MySqlCommand command = new MySqlCommand($"INSERT INTO `users`( `Login`, `Password`, `Rights`, `Registration_Date`) VALUES ('{username}','{password}','Employee', NOW());", GetConnection());
+            MySqlCommand command = new MySqlCommand($"INSERT INTO `users`( `Login`, `Password`, `Rights`, `Name`, `Registration_Date`) VALUES ('{username}','{password}', '{name}', 'Employee', NOW());", GetConnection());
             int rowsAffected = command.ExecuteNonQuery();
 
             return rowsAffected > 0;
