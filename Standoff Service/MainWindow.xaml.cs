@@ -62,7 +62,8 @@ namespace Standoff_Service
 
         private void Add_Window_Click(object sender, RoutedEventArgs e)
         {
-
+            AddWindow AddWindow = new AddWindow(Materials_Table);
+            AddWindow.Show();
         }
 
         private void CollapseAllWindows()
