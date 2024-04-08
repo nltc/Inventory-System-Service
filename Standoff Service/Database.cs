@@ -47,7 +47,9 @@ namespace Standoff_Service
 
         public bool RegistrateUser(string username, string password, string name)
         {
-            MySqlCommand command = new MySqlCommand($"INSERT INTO `users` (`Login`, `Password`, `Rights`, `Name`, `Registration_Date`) VALUES ('{username}', '{password}', 'Employee', '{name}', NOW());", GetConnection());
+            DateTime registrationDate = DateTime.UtcNow;
+
+            MySqlCommand command = new MySqlCommand($"INSERT INTO `users` (`Login`, `Password`, `Rights`, `Name`, `Registration_Date`) VALUES ('{username}', '{password}', 'Employee', '{name}', '{registrationDate}');", GetConnection());
             int rowsAffected = command.ExecuteNonQuery();
 
             return rowsAffected > 0;
@@ -57,7 +59,7 @@ namespace Standoff_Service
         {
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand("SELECT * FROM nuclearmaterials", GetConnection());
+            MySqlCommand command = new MySqlCommand("SELECT Name, Description, Quantity, Location, Production_Date, Expiration_Date FROM nuclearmaterials", GetConnection());
 
             adapter.SelectCommand = command;
             adapter.Fill(table);
@@ -69,7 +71,7 @@ namespace Standoff_Service
         {
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand($"SELECT * FROM nuclearmaterials WHERE `Name` = '{name}'", GetConnection());
+            MySqlCommand command = new MySqlCommand($"SELECT Name, Description, Quantity, Location, Production_Date, Expiration_Date FROM nuclearmaterials WHERE `Name` = '{name}'", GetConnection());
 
             adapter.SelectCommand = command;
             adapter.Fill(table);
@@ -79,11 +81,27 @@ namespace Standoff_Service
 
         public bool AddMaterial(string name, string description, string quantity, string location, string production_date, string expiration_date)
         {
-
             MySqlCommand command = new MySqlCommand(
                 $"INSERT INTO `nuclearmaterials` (`Name`, `Description`, `Quantity`, `Location`, `Production_Date`, `Expiration_Date`) VALUES ('{name}', '{description}', '{quantity}', '{location}', '{production_date}', '{expiration_date}');", GetConnection());
             int rowsAffected = command.ExecuteNonQuery();
 
+            return rowsAffected > 0;
+        }
+
+        public bool DeleteMaterial(string name)
+        {
+            MySqlCommand command = new MySqlCommand($"DELETE FROM nuclearmaterials WHERE `Name` = '{name}'", GetConnection());
+            int rowsAffected = command.ExecuteNonQuery();
+
+            return rowsAffected > 0;
+        }
+
+        public bool AddHistory(string user, string action)
+        {
+            DateTime registrationDate = DateTime.UtcNow;
+
+            MySqlCommand command = new MySqlCommand($"INSERT INTO `history` (`User`, `Time`, `Action`) Values ('{user}', '{registrationDate}', '{action}')", GetConnection());
+            int rowsAffected = command.ExecuteNonQuery();
 
             return rowsAffected > 0;
         }
@@ -93,6 +111,18 @@ namespace Standoff_Service
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             MySqlCommand command = new MySqlCommand("SELECT `Name`, `Rights`, `Registration_Date` FROM users", GetConnection());
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            return table;
+        }
+
+        public DataTable ShowHistory()
+        {
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand("SELECT `User`, `Time`, `Action` FROM history", GetConnection());
 
             adapter.SelectCommand = command;
             adapter.Fill(table);

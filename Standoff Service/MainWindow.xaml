@@ -23,6 +23,7 @@
         <TextBlock Margin="120,17,698,500" FontSize="10"><Hyperlink Click="Exit_Click"><Run Text="Exit"/></Hyperlink></TextBlock>
         <DataGrid x:Name="Materials_Table" Margin="157,0,0,115" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
         <DataGrid x:Name="Persons_Table" Margin="157,0,0,115" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
+        <DataGrid x:Name="History_Table" Margin="157,0,0,0" Visibility="Collapsed" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False"/>
         <Button x:Name="Find_Button"
                 Content="Find" 
                 Click="Find_Window_Click"

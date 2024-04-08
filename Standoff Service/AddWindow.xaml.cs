@@ -19,9 +19,11 @@ namespace Standoff_Service
     {
         public DataTable resultTable { get; private set; }
         public DataGrid input_grid { get; private set; }
+        public string username { get; private set; }
 
-        public AddWindow(DataGrid grid)
+        public AddWindow(DataGrid grid, string user)
         {
+            username = user;
             InitializeComponent();
             input_grid = grid;
         }
@@ -145,6 +147,7 @@ namespace Standoff_Service
         }
         private void AddWindow_Click(object sender, RoutedEventArgs e)
         {
+            string historyText;
             string NameFieldText = NameField.Text;
             string DescriptionFieldText = DescriptionField.Text;
             string QuantityFieldText = QuantityField.Text;
@@ -185,14 +188,17 @@ namespace Standoff_Service
                     Database db = new Database();
                     db.OpenConnection();
                     bool added = db.AddMaterial(NameFieldText, DescriptionFieldText, QuantityFieldText, LocationFieldText, ProductionDateFieldParsed, ExpirationDateFieldParsed);
-                    db.CloseConnection();
+                    historyText = $"Added to database material: {NameFieldText}";
 
                     if (added)
                     {
+                        db.AddHistory(username, historyText);
                         ErrorMessageTextBlock.Visibility = Visibility.Collapsed;
                         MessageBox.Show("Material added successful");
                         this.Close();
                     }
+
+                    db.CloseConnection();
                 }
             }
         }

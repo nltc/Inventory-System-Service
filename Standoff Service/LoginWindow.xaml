@@ -17,7 +17,7 @@
         <TextBlock TextWrapping="Wrap" TextAlignment="Center"
                    Text="Nuclear Materials Inventory System" 
                    Style="{StaticResource HeaderTextBlockStyle}" 
-                   Margin="46,45,46,234" FontSize="24" FontWeight="Bold" Grid.RowSpan="2"/>
+                   Margin="46,36,46,243" FontSize="24" FontWeight="Bold" Grid.RowSpan="2"/>
 
         <Border Grid.Row="1" Margin="20,20,20,55"  BorderThickness="1" CornerRadius="5">
             <Grid Height="224" VerticalAlignment="Top" Margin="17,-31,-18,0">

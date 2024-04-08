@@ -47,6 +47,7 @@ namespace Standoff_Service
         private void History_Button_Click(object sender, RoutedEventArgs e)
         {
             CollapseAllWindows();
+            Load_History_Table();
         }
 
         private void Find_Window_Click(object sender, RoutedEventArgs e)
@@ -57,12 +58,13 @@ namespace Standoff_Service
 
         private void Delete_Window_Click(object sender, RoutedEventArgs e)
         {
-
+            DeleteWindow deleteWindow = new DeleteWindow(Materials_Table, User_Text.Text);
+            deleteWindow.Show();
         }
 
         private void Add_Window_Click(object sender, RoutedEventArgs e)
         {
-            AddWindow AddWindow = new AddWindow(Materials_Table);
+            AddWindow AddWindow = new AddWindow(Materials_Table, User_Text.Text);
             AddWindow.Show();
         }
 
@@ -71,6 +73,7 @@ namespace Standoff_Service
             Main_Text.Visibility = Visibility.Collapsed;
             Materials_Table.Visibility = Visibility.Collapsed;
             Persons_Table.Visibility = Visibility.Collapsed;
+            History_Table.Visibility = Visibility.Collapsed;
             Delete_Button.Visibility = Visibility.Collapsed;
             Find_Button.Visibility = Visibility.Collapsed;
             Add_Button.Visibility = Visibility.Collapsed;
@@ -104,6 +107,16 @@ namespace Standoff_Service
             db.CloseConnection();
             Persons_Table.Visibility = Visibility.Visible;
             Persons_Table.ItemsSource = table.DefaultView;
+        }
+
+        private void Load_History_Table()
+        {
+            Database db = new Database();
+            db.OpenConnection();
+            DataTable table = db.ShowHistory();
+            db.CloseConnection();
+            History_Table.Visibility = Visibility.Visible;
+            History_Table.ItemsSource = table.DefaultView;
         }
     }
 }

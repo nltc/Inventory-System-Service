@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using Serilog;
 
 namespace Standoff_Service
 {
@@ -71,6 +72,7 @@ namespace Standoff_Service
             {
                 MainWindow mainWindow = new MainWindow(LoginField.Text);
                 mainWindow.Show();
+                Log.Information($"{loginUser} logged in app");;
                 this.Close();
             }
             else
