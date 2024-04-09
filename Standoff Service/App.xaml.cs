@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Serilog;
 
@@ -9,8 +10,10 @@ namespace Standoff_Service
         public App()
         {
             string currentDateTime = DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
+            string currentDirectory = Directory.GetCurrentDirectory();
+
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File($"log_{currentDateTime}.txt")
+                .WriteTo.File($@"{currentDirectory}\Logs\log_{currentDateTime}.txt")
                 .CreateLogger();
         }
 
