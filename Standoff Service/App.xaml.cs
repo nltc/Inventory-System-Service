@@ -10,10 +10,11 @@ namespace Standoff_Service
         public App()
         {
             string currentDateTime = DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss");
-            string currentDirectory = Directory.GetCurrentDirectory();
+            string logDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Nuclear Materials", "Logs");
+            string logFilePath = Path.Combine(logDirectory, $"log_{currentDateTime}.txt");
 
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File($@"{currentDirectory}\Logs\log_{currentDateTime}.txt")
+                .WriteTo.File(logFilePath)
                 .CreateLogger();
         }
 
