@@ -1,11 +1,9 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Data;
+﻿using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
+using Serilog;
 
 namespace Standoff_Service
 {
@@ -100,15 +98,27 @@ namespace Standoff_Service
             {
                 Database db = new Database();
                 db.OpenConnection();
-                bool registration = db.RegistrateUser(loginUser, passwordUser, firstLastName);
-                db.CloseConnection();
+                DataTable table = db.SelectUser(loginUser, passwordUser);
 
-                if (registration)
+                if (table.Rows.Count > 0)
                 {
-                    ErrorMessageTextBlock.Visibility = Visibility.Collapsed;
-                    MessageBox.Show("Registration successful");
-                    this.Close();
+                    ErrorMessageTextBlock.Visibility = Visibility.Visible;
+                    ErrorMessageTextBlock.Text = "User already exists";
                 }
+                else
+                {
+                    bool registration = db.RegistrateUser(loginUser, passwordUser, firstLastName);
+
+                    if (registration)
+                    {
+                        ErrorMessageTextBlock.Visibility = Visibility.Collapsed;
+                        Log.Information($"{loginUser} registrated in aplication");
+                        MessageBox.Show("Registration successful");
+                        this.Close();
+                    }
+                }
+
+                db.CloseConnection();
             }
         }
     }

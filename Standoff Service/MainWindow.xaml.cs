@@ -1,26 +1,17 @@
-﻿using MySqlX.XDevAPI.Relational;
-using System;
-using System.Collections.Generic;
+﻿using Serilog;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Media.Media3D;
 
 namespace Standoff_Service
 {
     public partial class MainWindow : Window
     {
-        public MainWindow(string username)
+        public string rigth { get; private set; }
+
+        public MainWindow(string username, string rigths)
         {
+            rigth = rigths;
             InitializeComponent();
             User_Text.Text = username;
             Main_Text.Visibility = Visibility.Visible;
@@ -29,13 +20,23 @@ namespace Standoff_Service
         private void MainButton_Click(object sender, RoutedEventArgs e)
         {
             CollapseAllWindows();
+            Main_Text.Text = "Nuclear Materials Inventory System";
             Main_Text.Visibility = Visibility.Visible;
         }
 
         private void Persons_Button_Click(object sender, RoutedEventArgs e)
         {
             CollapseAllWindows();
-            Load_Persons_Table();
+
+            if (rigth == "Employee")
+            {
+                Main_Text.Text = "You do not have enough rights to view this page";
+                Main_Text.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Load_Persons_Table();
+            }
         }
 
         private void Materials_Button_Click(object sender, RoutedEventArgs e)
@@ -47,25 +48,48 @@ namespace Standoff_Service
         private void History_Button_Click(object sender, RoutedEventArgs e)
         {
             CollapseAllWindows();
-            Load_History_Table();
+
+            if (rigth == "Employee")
+            {
+                Main_Text.Text = "You do not have enough rights to view this page";
+                Main_Text.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Load_History_Table();
+            }
         }
 
         private void Find_Window_Click(object sender, RoutedEventArgs e)
         {
-            FindWindow findWindow = new FindWindow(Materials_Table);
+            FindWindow findWindow = new FindWindow(Materials_Table, User_Text.Text);
             findWindow.Show();
         }
 
         private void Delete_Window_Click(object sender, RoutedEventArgs e)
         {
-            DeleteWindow deleteWindow = new DeleteWindow(Materials_Table, User_Text.Text);
-            deleteWindow.Show();
+            if (rigth == "Employee" || rigth == "Manager")
+            {
+                MessageBox.Show("There are not enough rights for this action");
+            }
+            else
+            {
+                DeleteWindow deleteWindow = new DeleteWindow(Materials_Table, User_Text.Text);
+                deleteWindow.Show();
+            }
         }
 
         private void Add_Window_Click(object sender, RoutedEventArgs e)
         {
-            AddWindow AddWindow = new AddWindow(Materials_Table, User_Text.Text);
-            AddWindow.Show();
+            if (rigth == "Employee" || rigth == "Manager")
+            {
+                MessageBox.Show("There are not enough rights for this action");
+            }
+            else
+            {
+                AddWindow AddWindow = new AddWindow(Materials_Table, User_Text.Text);
+                AddWindow.Show();
+            }
         }
 
         private void CollapseAllWindows()

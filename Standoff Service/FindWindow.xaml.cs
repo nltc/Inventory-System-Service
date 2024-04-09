@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Serilog;
 
 namespace Standoff_Service
 {
@@ -19,12 +10,15 @@ namespace Standoff_Service
     {
         public DataTable resultTable { get; private set; }
         public DataGrid input_grid { get; private set; }
+        public string username { get; private set; }
 
-        public FindWindow(DataGrid grid)
+        public FindWindow(DataGrid grid, string user)
         {
             InitializeComponent();
             input_grid = grid;
+            username = user;
         }
+
         private void FindBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -52,6 +46,7 @@ namespace Standoff_Service
             Database db = new Database();
             db.OpenConnection();
             DataTable table = db.FindMaterials(FindFieldText);
+            Log.Information($"{username} tried to find the material: {FindFieldText}");
             db.CloseConnection();
 
             if (table.Rows.Count > 0)

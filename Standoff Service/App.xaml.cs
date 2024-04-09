@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Serilog;
-using Serilog.Events;
 
 namespace Standoff_Service
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public App()
@@ -29,20 +20,20 @@ namespace Standoff_Service
 
             AppDomain.CurrentDomain.UnhandledException += (s, ex) =>
             {
-                Log.Fatal((Exception)ex.ExceptionObject, "Необработанное исключение");
+                Log.Fatal((Exception)ex.ExceptionObject, "Unhandled exception");
             };
 
             DispatcherUnhandledException += (s, ex) =>
             {
-                Log.Fatal(ex.Exception, "Необработанное исключение в UI потоке");
+                Log.Fatal(ex.Exception, "Unhandled exception in UI thread");
             };
 
-            Log.Information("Приложение запущено");
+            Log.Information("The application is running");
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Log.Information("Приложение завершает работу");
+            Log.Information("The application quits");
 
             base.OnExit(e);
 

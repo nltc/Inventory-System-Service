@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Serilog;
+using System;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Serilog;
 
 namespace Standoff_Service
 {
@@ -23,8 +17,8 @@ namespace Standoff_Service
 
         public AddWindow(DataGrid grid, string user)
         {
-            username = user;
             InitializeComponent();
+            username = user;
             input_grid = grid;
         }
 
@@ -148,18 +142,8 @@ namespace Standoff_Service
         private void AddWindow_Click(object sender, RoutedEventArgs e)
         {
             string historyText;
-            string NameFieldText = NameField.Text;
-            string DescriptionFieldText = DescriptionField.Text;
-            string QuantityFieldText = QuantityField.Text;
-            string LocationFieldText = LocationField.Text;
-            string ProductionDateFieldText = ProductionDateField.Text;
-            string ExpirationDateFieldText = ExpirationDateField.Text;
-            string ProductionDateFieldParsed = "";
-            string ExpirationDateFieldParsed = "";
-            DateTime parsedProductionDate;
-            DateTime parsedExpirationDate;
+            string[] fields = { NameField.Text, DescriptionField.Text, QuantityField.Text, LocationField.Text, ProductionDateField.Text, ExpirationDateField.Text };
 
-            string[] fields = { NameFieldText, DescriptionFieldText, QuantityFieldText, LocationFieldText, ProductionDateFieldText, ExpirationDateFieldText };
             bool isAnyFieldEmpty = fields.Any(string.IsNullOrEmpty);
 
             if (isAnyFieldEmpty || fields.Any(field => field == "Name:" || field == "Description:" || field == "Quantity:" || field == "Location:" || field == "Production Date:" || field == "Expiration Date:"))
@@ -169,37 +153,50 @@ namespace Standoff_Service
             }
             else
             {
+                DateTime parsedProductionDate, parsedExpirationDate;
+
                 try
                 {
-                    parsedProductionDate = DateTime.Parse(ProductionDateFieldText);
-                    ProductionDateFieldParsed = parsedProductionDate.ToString("dd-MM-yyyy");
-
-                    parsedExpirationDate = DateTime.Parse(ExpirationDateFieldText);
-                    ExpirationDateFieldParsed = parsedExpirationDate.ToString("dd-MM-yyyy");
+                    parsedProductionDate = DateTime.Parse(ProductionDateField.Text);
+                    parsedExpirationDate = DateTime.Parse(ExpirationDateField.Text);
                 }
                 catch (Exception ex)
                 {
                     ErrorMessageTextBlock.Visibility = Visibility.Visible;
                     ErrorMessageTextBlock.Text = "Wrong datetime";
+
+                    return;
                 }
 
-                if (!(string.IsNullOrEmpty(ProductionDateFieldParsed) || string.IsNullOrEmpty(ExpirationDateFieldParsed)))
+                string productionDateParsed = parsedProductionDate.ToString("dd-MM-yyyy");
+                string expirationDateParsed = parsedExpirationDate.ToString("dd-MM-yyyy");
+
+                Database db = new Database();
+                db.OpenConnection();
+                DataTable findTable = db.FindMaterials(NameField.Text);
+
+                if (!(findTable.Rows.Count > 0))
                 {
-                    Database db = new Database();
-                    db.OpenConnection();
-                    bool added = db.AddMaterial(NameFieldText, DescriptionFieldText, QuantityFieldText, LocationFieldText, ProductionDateFieldParsed, ExpirationDateFieldParsed);
-                    historyText = $"Added to database material: {NameFieldText}";
+                    bool added = db.AddMaterial(NameField.Text, DescriptionField.Text, QuantityField.Text, LocationField.Text, productionDateParsed, expirationDateParsed);
 
                     if (added)
                     {
+                        historyText = $"Added to database material: {NameField.Text}";
                         db.AddHistory(username, historyText);
-                        ErrorMessageTextBlock.Visibility = Visibility.Collapsed;
-                        MessageBox.Show("Material added successful");
-                        this.Close();
-                    }
 
-                    db.CloseConnection();
+                        Log.Information($"{username} {historyText}");
+
+                        ErrorMessageTextBlock.Visibility = Visibility.Collapsed;
+                        MessageBox.Show("Material added successfully");
+                    }
                 }
+                else
+                {
+                    ErrorMessageTextBlock.Visibility = Visibility.Visible;
+                    ErrorMessageTextBlock.Text = "Material already exists";
+                }
+
+                db.CloseConnection();
             }
         }
     }

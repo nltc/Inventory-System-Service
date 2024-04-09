@@ -1,11 +1,7 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Data;
+﻿using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using Serilog;
 
 namespace Standoff_Service
@@ -70,9 +66,10 @@ namespace Standoff_Service
 
             if (table.Rows.Count > 0)
             {
-                MainWindow mainWindow = new MainWindow(LoginField.Text);
+                string rights = table.Rows[0]["Rights"].ToString();
+                MainWindow mainWindow = new MainWindow(LoginField.Text, rights);
                 mainWindow.Show();
-                Log.Information($"{loginUser} logged in app");;
+                Log.Information($"{loginUser} logged in app");
                 this.Close();
             }
             else
@@ -81,6 +78,7 @@ namespace Standoff_Service
                 ErrorMessageTextBlock.Text = "Wrong username or password";
             }
         }
+
         private void Registration_Click(object sender, RoutedEventArgs e)
         {
             RegistrationWindow registrationWindow = new RegistrationWindow();
